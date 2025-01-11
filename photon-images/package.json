@@ -1,0 +1,12 @@
+{
+  "name": "photon-app",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "replicate": "^0.25.1",
+    "dotenv": "^16.3.1"
+  }
+}

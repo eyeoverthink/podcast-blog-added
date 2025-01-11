@@ -1,0 +1,19 @@
+curl -s -X POST \
+  -H "Authorization: Bearer $REPLICATE_API_TOKEN" \
+  -H "Content-Type: application/json" \
+  -H "Prefer: wait" \
+  -d $'{
+    "version": "cbd15da9f839c5f932742f86ce7def3a03c22e2b4171d42823e83e314547003f",
+    "input": {
+        "text": "LLama, AI, Meta.",
+        "voice_preset": "v2/en_speaker_6"
+      "prompt": "LLama, AI, Meta.",
+      "file_url": "",
+      "language": "en",
+      "num_speakers": 2,
+      "group_segments": true,
+      "offset_seconds": 0,
+      "transcript_output_format": "both"
+    }
+  }' \
+  https://api.replicate.com/v1/predictions

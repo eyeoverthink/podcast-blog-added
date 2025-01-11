@@ -1,0 +1,56 @@
+// This is your Prisma schema file
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGODB_URI")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String    @id @map("_id")  
+  email         String    @unique
+  name          String?
+  imageUrl      String?
+  credits       Int       @default(1000)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  projects      Project[]
+  content       Content[]
+}
+
+model Project {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   
+  type      String
+  content   String
+  thumbnail String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Content {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String
+  type        String   // 'image', 'music', 'podcast', 'blog'
+  title       String
+  description String
+  prompt      String
+  url         String
+  thumbnail   String?
+  script      String?
+  duration    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime? @updatedAt
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model CreditTransaction {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String   
+  amount      Int
+  description String?
+  createdAt   DateTime @default(now())
+}
